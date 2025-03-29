@@ -518,101 +518,80 @@ Disassembly of section .text:
 
 0000000000401188 <phase_6>:
   401188:	41 55                	push   %r13
-  40118a:	41 54                	push   %r12 #r12=_start函数地址 0x400cd0
-  40118c:	55                   	push   %rbp #rbp=libc_csu_int函数0x4023c0
-  40118d:	53                   	push   %rbx #rbx=(?)
-
+  40118a:	41 54                	push   %r12
+  40118c:	55                   	push   %rbp
+  40118d:	53                   	push   %rbx
   40118e:	48 83 ec 58          	sub    $0x58,%rsp
   401192:	48 8d 74 24 30       	lea    0x30(%rsp),%rsi
   401197:	e8 e3 04 00 00       	callq  40167f <read_six_numbers>
-  40119c:	4c 8d 6c 24 30       	lea    0x30(%rsp),%r13 #第一个数 0x7fffffffe720开始
-  4011a1:	41 bc 00 00 00 00    	mov    $0x0,%r12d #r12d=0
-  4011a7:	4c 89 ed             	mov    %r13,%rbp #rbp=a
-  4011aa:	41 8b 45 00          	mov    0x0(%r13),%eax #eax=a
-  4011ae:	83 e8 01             	sub    $0x1,%eax #eax-=1
-  4011b1:	83 f8 05             	cmp    $0x5,%eax #eax<=5 a<=6
+  40119c:	4c 8d 6c 24 30       	lea    0x30(%rsp),%r13
+  4011a1:	41 bc 00 00 00 00    	mov    $0x0,%r12d
+  4011a7:	4c 89 ed             	mov    %r13,%rbp
+  4011aa:	41 8b 45 00          	mov    0x0(%r13),%eax
+  4011ae:	83 e8 01             	sub    $0x1,%eax
+  4011b1:	83 f8 05             	cmp    $0x5,%eax
   4011b4:	76 05                	jbe    4011bb <phase_6+0x33>
-
   4011b6:	e8 8e 04 00 00       	callq  401649 <explode_bomb>
   4011bb:	41 83 c4 01          	add    $0x1,%r12d #r12d+=1
-  4011bf:	41 83 fc 06          	cmp    $0x6,%r12d #r12d!=6 #双重循环
+  4011bf:	41 83 fc 06          	cmp    $0x6,%r12d #r12d!=6
   4011c3:	75 07                	jne    4011cc <phase_6+0x44>
-  4011c5:	be 00 00 00 00       	mov    $0x0,%esi #esi=0
+  4011c5:	be 00 00 00 00       	mov    $0x0,%esi
   4011ca:	eb 42                	jmp    40120e <phase_6+0x86>
-
-  4011cc:	44 89 e3             	mov    %r12d,%ebx #ebx=r12d
-  4011cf:	48 63 c3             	movslq %ebx,%rax #rax=ebx
-  4011d2:	8b 44 84 30          	mov    0x30(%rsp,%rax,4),%eax #eax=下一位
-  4011d6:	39 45 00             	cmp    %eax,0x0(%rbp) #eax!=rbp 不等于第一位
-  4011d9:	75 05                	jne    4011e0 <phase_6+0x58> #应该eax!=rbp
+  4011cc:	44 89 e3             	mov    %r12d,%ebx
+  4011cf:	48 63 c3             	movslq %ebx,%rax
+  4011d2:	8b 44 84 30          	mov    0x30(%rsp,%rax,4),%eax
+  4011d6:	39 45 00             	cmp    %eax,0x0(%rbp)
+  4011d9:	75 05                	jne    4011e0 <phase_6+0x58>
   4011db:	e8 69 04 00 00       	callq  401649 <explode_bomb>
-  4011e0:	83 c3 01             	add    $0x1,%ebx #ebx+=1 下标
-  4011e3:	83 fb 05             	cmp    $0x5,%ebx #ebx<=5
+  4011e0:	83 c3 01             	add    $0x1,%ebx
+  4011e3:	83 fb 05             	cmp    $0x5,%ebx
   4011e6:	7e e7                	jle    4011cf <phase_6+0x47>
-  4011e8:	49 83 c5 04          	add    $0x4,%r13 #r13+=4 (指针指向下一个)
+  4011e8:	49 83 c5 04          	add    $0x4,%r13
   4011ec:	eb b9                	jmp    4011a7 <phase_6+0x1f>
-                            #1~6不重复
-#0x6042f0 <node1>:	0x000003c9	0x00000001	0x00604300	0x00000000
-#0x604300 <node2>:	0x0000037b	0x00000002	0x00604310	0x00000000
-#0x604310 <node3>:	0x00000074	0x00000003	0x00604320	0x00000000
-#0x604320 <node4>:	0x00000041	0x00000004	0x00604330	0x00000000
-#0x604330 <node5>:	0x00000128	0x00000005	0x00604340	0x00000000
-#0x604340 <node6>:	0x0000017f	0x00000006	0x00000000	0x00000000
-  4011ee:	48 8b 52 08          	mov    0x8(%rdx),%rdx #下一个node
-  4011f2:	83 c0 01             	add    $0x1,%eax #eax+=1 node序号
-  4011f5:	39 c8                	cmp    %ecx,%eax #eax!=ecx
+  4011ee:	48 8b 52 08          	mov    0x8(%rdx),%rdx
+  4011f2:	83 c0 01             	add    $0x1,%eax
+  4011f5:	39 c8                	cmp    %ecx,%eax
   4011f7:	75 f5                	jne    4011ee <phase_6+0x66>
-
   4011f9:	eb 05                	jmp    401200 <phase_6+0x78>
-  4011fb:	ba f0 42 60 00       	mov    $0x6042f0,%edx #edx=node1
+  4011fb:	ba f0 42 60 00       	mov    $0x6042f0,%edx
   401200:	48 89 14 74          	mov    %rdx,(%rsp,%rsi,2)
-  401204:	48 83 c6 04          	add    $0x4,%rsi #rsi+=4
-  401208:	48 83 fe 18          	cmp    $0x18,%rsi #rsi==24
+  401204:	48 83 c6 04          	add    $0x4,%rsi
+  401208:	48 83 fe 18          	cmp    $0x18,%rsi
   40120c:	74 15                	je     401223 <phase_6+0x9b>
-  40120e:	8b 4c 34 30          	mov    0x30(%rsp,%rsi,1),%ecx #下一位
-  401212:	83 f9 01             	cmp    $0x1,%ecx #ecx<=1
+  40120e:	8b 4c 34 30          	mov    0x30(%rsp,%rsi,1),%ecx
+  401212:	83 f9 01             	cmp    $0x1,%ecx
   401215:	7e e4                	jle    4011fb <phase_6+0x73>
-  401217:	b8 01 00 00 00       	mov    $0x1,%eax #eax=1
-  40121c:	ba f0 42 60 00       	mov    $0x6042f0,%edx #edx=node1
+  401217:	b8 01 00 00 00       	mov    $0x1,%eax
+  40121c:	ba f0 42 60 00       	mov    $0x6042f0,%edx
   401221:	eb cb                	jmp    4011ee <phase_6+0x66>
-               #把node排序 从0x7fffffffe6f0开始
   401223:	48 8b 1c 24          	mov    (%rsp),%rbx 
-  401227:	48 8d 44 24 08       	lea    0x8(%rsp),%rax #下一个的地址
-  40122c:	48 8d 74 24 30       	lea    0x30(%rsp),%rsi #第一个数
-  401231:	48 89 d9             	mov    %rbx,%rcx #最小的node
-#969 891 116 65 296 383
-  401234:	48 8b 10             	mov    (%rax),%rdx #
-  401237:	48 89 51 08          	mov    %rdx,0x8(%rcx) #node.next=another node
+  401227:	48 8d 44 24 08       	lea    0x8(%rsp),%rax
+  40122c:	48 8d 74 24 30       	lea    0x30(%rsp),%rsi
+  401231:	48 89 d9             	mov    %rbx,%rcx
+  401234:	48 8b 10             	mov    (%rax),%rdx
+  401237:	48 89 51 08          	mov    %rdx,0x8(%rcx)
   40123b:	48 83 c0 08          	add    $0x8,%rax
   40123f:	48 39 f0             	cmp    %rsi,%rax
   401242:	74 05                	je     401249 <phase_6+0xc1>
   401244:	48 89 d1             	mov    %rdx,%rcx
   401247:	eb eb                	jmp    401234 <phase_6+0xac>
-#0x6042f0 <node1>:	0x000003c9	0x00000001	0x00604320	0x00000000
-#0x604300 <node2>:	0x0000037b	0x00000002	0x006042f0	0x00000000
-#0x604310 <node3>:	0x00000074	0x00000003	0x00604300	0x00000000
-#0x604320 <node4>:	0x00000041	0x00000004	0x00604330	0x00000000
-#0x604330 <node5>:	0x00000128	0x00000005	0x00604340	0x00000000
-#0x604340 <node6>:	0x0000017f	0x00000006	0x00000000	0x00000000
-  401249:	48 c7 42 08 00 00 00 	movq   $0x0,0x8(%rdx) #最后的node指向空指针
+  401249:	48 c7 42 08 00 00 00 	movq   $0x0,0x8(%rdx)
   401250:	00 
-  401251:	bd 05 00 00 00       	mov    $0x5,%ebp #rbp=5
-  401256:	48 8b 43 08          	mov    0x8(%rbx),%rax #rax=rbx.next
-  40125a:	8b 00                	mov    (%rax),%eax #rax=*rax
-  40125c:	39 03                	cmp    %eax,(%rbx) #rbx<=rax
+  401251:	bd 05 00 00 00       	mov    $0x5,%ebp
+  401256:	48 8b 43 08          	mov    0x8(%rbx),%rax
+  40125a:	8b 00                	mov    (%rax),%eax
+  40125c:	39 03                	cmp    %eax,(%rbx)
   40125e:	7e 05                	jle    401265 <phase_6+0xdd>
   401260:	e8 e4 03 00 00       	callq  401649 <explode_bomb>
-  401265:	48 8b 5b 08          	mov    0x8(%rbx),%rbx #rbx=rbx.next
+  401265:	48 8b 5b 08          	mov    0x8(%rbx),%rbx
   401269:	83 ed 01             	sub    $0x1,%ebp
   40126c:	75 e8                	jne    401256 <phase_6+0xce>
-#1 2 5 6 4 3
   40126e:	48 83 c4 58          	add    $0x58,%rsp
   401272:	5b                   	pop    %rbx
   401273:	5d                   	pop    %rbp
   401274:	41 5c                	pop    %r12
   401276:	41 5d                	pop    %r13
   401278:	c3                   	retq   
-
 0x604110 <n1>:	0x00000024	0x00000000	0x00604130	0x00000000
 0x604120 <n1+16>:	0x00604150	0x00000000	0x00000000	0x00000000
 0x604130 <n21>:	0x00000008	0x00000000	0x006041b0	0x00000000
