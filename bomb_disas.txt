@@ -373,16 +373,15 @@ Disassembly of section .text:
   400f87:	83 7c 24 0c 07       	cmpl   $0x7,0xc(%rsp) #x<=7
   400f8c:	0f 87 f2 00 00 00    	ja     401084 <phase_3+0x129> #bomb
   400f92:	8b 44 24 0c          	mov    0xc(%rsp),%eax #eax=x
-  400f96:	ff 24 c5 10 26 40 00 	jmpq   *0x402610(,%rax,8) #*(402610+8x)
-                                       #x=1 0x400fbc x=2 0x400fde x=3 0x401000
+  400f96:	ff 24 c5 10 26 40 00 	jmpq   *0x402610(,%rax,8)
   400f9d:	b8 52 00 00 00       	mov    $0x52,%eax
   400fa2:	83 7c 24 08 5d       	cmpl   $0x5d,0x8(%rsp)
   400fa7:	0f 84 e1 00 00 00    	je     40108e <phase_3+0x133>
   400fad:	e8 97 06 00 00       	callq  401649 <explode_bomb>
   400fb2:	b8 52 00 00 00       	mov    $0x52,%eax
   400fb7:	e9 d2 00 00 00       	jmpq   40108e <phase_3+0x133>
-  400fbc:	b8 65 00 00 00       	mov    $0x65,%eax #eax=101
-  400fc1:	81 7c 24 08 17 03 00 	cmpl   $0x317,0x8(%rsp) #z==791
+  400fbc:	b8 65 00 00 00       	mov    $0x65,%eax
+  400fc1:	81 7c 24 08 17 03 00 	cmpl   $0x317,0x8(%rsp)
   400fc8:	00 
   400fc9:	0f 84 bf 00 00 00    	je     40108e <phase_3+0x133>
   400fcf:	e8 75 06 00 00       	callq  401649 <explode_bomb>
@@ -431,7 +430,7 @@ Disassembly of section .text:
   401082:	eb 0a                	jmp    40108e <phase_3+0x133>
   401084:	e8 c0 05 00 00       	callq  401649 <explode_bomb>
   401089:	b8 61 00 00 00       	mov    $0x61,%eax
-  40108e:	3a 44 24 07          	cmp    0x7(%rsp),%al #c=e
+  40108e:	3a 44 24 07          	cmp    0x7(%rsp),%al
   401092:	74 05                	je     401099 <phase_3+0x13e>
   401094:	e8 b0 05 00 00       	callq  401649 <explode_bomb>
   401099:	48 83 c4 18          	add    $0x18,%rsp
@@ -439,24 +438,23 @@ Disassembly of section .text:
 
 000000000040109e <func4>:
   40109e:	53                   	push   %rbx
-  40109f:	89 d0                	mov    %edx,%eax #eax=edx
-  4010a1:	29 f0                	sub    %esi,%eax #eax-=esi
-  4010a3:	89 c3                	mov    %eax,%ebx #ebx=
-  4010a5:	c1 eb 1f             	shr    $0x1f,%ebx #ebx>>=31
-  4010a8:	01 d8                	add    %ebx,%eax #eax+=0
-  4010aa:	d1 f8                	sar    %eax #eax>>=1
+  40109f:	89 d0                	mov    %edx,%eax
+  4010a1:	29 f0                	sub    %esi,%eax
+  4010a3:	89 c3                	mov    %eax,%ebx
+  4010a5:	c1 eb 1f             	shr    $0x1f,%ebx
+  4010a8:	01 d8                	add    %ebx,%eax
+  4010aa:	d1 f8                	sar    %eax
   4010ac:	8d 1c 30             	lea    (%rax,%rsi,1),%ebx
-                                         #ebx=rax+rsi
-  4010af:	39 fb                	cmp    %edi,%ebx #ebx<=x
+  4010af:	39 fb                	cmp    %edi,%ebx
   4010b1:	7e 0c                	jle    4010bf <func4+0x21>
-  4010b3:	8d 53 ff             	lea    -0x1(%rbx),%edx #edx=rbx-1
-  4010b6:	e8 e3 ff ff ff       	callq  40109e <func4> #back
-  4010bb:	01 d8                	add    %ebx,%eax #eax+=ebx
+  4010b3:	8d 53 ff             	lea    -0x1(%rbx),%edx
+  4010b6:	e8 e3 ff ff ff       	callq  40109e <func4>
+  4010bb:	01 d8                	add    %ebx,%eax
   4010bd:	eb 10                	jmp    4010cf <func4+0x31>
-  4010bf:	89 d8                	mov    %ebx,%eax #eax=ebx
-  4010c1:	39 fb                	cmp    %edi,%ebx #ebx>=x
+  4010bf:	89 d8                	mov    %ebx,%eax
+  4010c1:	39 fb                	cmp    %edi,%ebx
   4010c3:	7d 0a                	jge    4010cf <func4+0x31>
-  4010c5:	8d 73 01             	lea    0x1(%rbx),%esi #esi=rbx+1
+  4010c5:	8d 73 01             	lea    0x1(%rbx),%esi
   4010c8:	e8 d1 ff ff ff       	callq  40109e <func4>
   4010cd:	01 d8                	add    %ebx,%eax
   4010cf:	5b                   	pop    %rbx
@@ -464,24 +462,23 @@ Disassembly of section .text:
 
 00000000004010d1 <phase_4>:
   4010d1:	48 83 ec 18          	sub    $0x18,%rsp
-  4010d5:	48 8d 4c 24 08       	lea    0x8(%rsp),%rcx #rcx=&y
-  4010da:	48 8d 54 24 0c       	lea    0xc(%rsp),%rdx #rdx=&x
+  4010d5:	48 8d 4c 24 08       	lea    0x8(%rsp),%rcx
+  4010da:	48 8d 54 24 0c       	lea    0xc(%rsp),%rdx
   4010df:	be 81 28 40 00       	mov    $0x402881,%esi
   4010e4:	b8 00 00 00 00       	mov    $0x0,%eax
   4010e9:	e8 42 fb ff ff       	callq  400c30 <__isoc99_sscanf@plt>
-                                               #eax=x (?)
-  4010ee:	83 f8 02             	cmp    $0x2,%eax #eax==2
+  4010ee:	83 f8 02             	cmp    $0x2,%eax
   4010f1:	75 07                	jne    4010fa <phase_4+0x29>
-  4010f3:	83 7c 24 0c 0e       	cmpl   $0xe,0xc(%rsp) #x<=14
+  4010f3:	83 7c 24 0c 0e       	cmpl   $0xe,0xc(%rsp)
   4010f8:	76 05                	jbe    4010ff <phase_4+0x2e>
   4010fa:	e8 4a 05 00 00       	callq  401649 <explode_bomb>
-  4010ff:	ba 0e 00 00 00       	mov    $0xe,%edx #edx=14
-  401104:	be 00 00 00 00       	mov    $0x0,%esi #esi=0
-  401109:	8b 7c 24 0c          	mov    0xc(%rsp),%edi #edi=x
+  4010ff:	ba 0e 00 00 00       	mov    $0xe,%edx
+  401104:	be 00 00 00 00       	mov    $0x0,%esi
+  401109:	8b 7c 24 0c          	mov    0xc(%rsp),%edi
   40110d:	e8 8c ff ff ff       	callq  40109e <func4>
-  401112:	83 f8 23             	cmp    $0x23,%eax #eax==35
+  401112:	83 f8 23             	cmp    $0x23,%eax
   401115:	75 07                	jne    40111e <phase_4+0x4d>
-  401117:	83 7c 24 08 23       	cmpl   $0x23,0x8(%rsp) #y==35
+  401117:	83 7c 24 08 23       	cmpl   $0x23,0x8(%rsp)
   40111c:	74 05                	je     401123 <phase_4+0x52>
   40111e:	e8 26 05 00 00       	callq  401649 <explode_bomb>
   401123:	48 83 c4 18          	add    $0x18,%rsp
